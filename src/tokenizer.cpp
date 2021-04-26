@@ -22,22 +22,21 @@ std::vector<Token> tokenize(const char *path){
     std::ifstream file(path);
     if (file.is_open()){
         Tokenizer tokenizer;
-        size_t lineIndex = 0;
         while (getline(file, tokenizer.lastLine)){
             tokenizer.lastChar = tokenizer.lastLine[0];
             while (!isEOF(tokenizer)){
                 if (tokenizer.lastChar == '='){
                     tokenizer.lastToken.value = tokenizer.lastChar;
                     tokenizer.lastToken.kind = T_EQUAL;
-                    tokenizer.lastToken.position = {lineIndex + 1, tokenizer.columnIndex + 1};
+                    tokenizer.lastToken.position = {tokenizer.lineIndex + 1, tokenizer.columnIndex + 1};
                     tokens.push_back(tokenizer.lastToken);
                     advance(tokenizer, 1);
                 }else{
-                    Error::syntax(Error::UNRECOGNIZED_TOKEN, "Unrecognized Token", path, tokenizer.lastToken.position.line, tokenizer.lastToken.position.column);
+                    Error::syntax(Error::UNRECOGNIZED_TOKEN, "Unrecognized Token", path, tokenizer.lineIndex + 1, tokenizer.columnIndex + 1);
                 }
             }
             tokenizer.columnIndex = 0;
-            lineIndex++;
+            tokenizer.lineIndex++;
         }
     }else{
         Error::compiler(Error::FILE_NOT_FOUND, "No Such File");
