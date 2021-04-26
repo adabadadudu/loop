@@ -79,7 +79,7 @@ std::vector<Token> tokenize(const char *path)
                         ++peekBy;
                     }
                     if(value == "\""){
-                        Error::syntax(Error::UNRECOGNIZED_TOKEN, "Unrecognized Token", path, tokenizer.lineIndex + 1, tokenizer.columnIndex + 1);
+                        Error::syntax(Error::MISSING_QUOTATION_MARK, "Missing quotation mark", path, tokenizer.lineIndex + 1, tokenizer.columnIndex + 1);
                     }
                     tokenizer.lastToken.kind = T_STRING;
                     tokenizer.lastToken.value = value;
