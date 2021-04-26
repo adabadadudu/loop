@@ -19,7 +19,9 @@ enum TOKENS
     T_RIGHT_CURLY_BRACKET,
     T_EQUAL,
     T_PLUS,
-    T_MINUS
+    T_MINUS,
+    T_EQUAL_PLUS,
+    T_EQUAL_MINUS,
 };
 
 struct TokenPosition

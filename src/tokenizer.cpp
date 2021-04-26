@@ -49,10 +49,33 @@ std::vector<Token> tokenize(const char *path)
             tokenizer.lastChar = tokenizer.lastLine[0];
             while (!isEOF(tokenizer))
             {
-                tokenizer.lastToken.value = tokenizer.lastChar;
+                tokenizer.lastToken.value.clear();
                 if (tokenizer.lastChar == '=')
                 {
-                    tokenizer.lastToken.kind = T_EQUAL;
+                    if (peek(tokenizer, 1) == '+')
+                    {
+                        tokenizer.lastToken.kind = T_EQUAL_PLUS;
+                        tokenizer.lastToken.value = '=';
+                        advance(tokenizer, 1);
+                    }
+                    else if (peek(tokenizer, 1) == '-')
+                    {
+                        tokenizer.lastToken.kind = T_EQUAL_MINUS;
+                        tokenizer.lastToken.value = '=';
+                        advance(tokenizer, 1);
+                    }
+                    else
+                    {
+                        tokenizer.lastToken.kind = T_EQUAL;
+                    }
+                }
+                else if (tokenizer.lastChar == '+')
+                {
+                    tokenizer.lastToken.kind = T_PLUS;
+                }
+                else if (tokenizer.lastChar == '-')
+                {
+                    tokenizer.lastToken.kind = T_MINUS;
                 }
                 else if (tokenizer.lastChar == ';')
                 {
@@ -78,6 +101,7 @@ std::vector<Token> tokenize(const char *path)
                 {
                     Error::syntax(Error::UNRECOGNIZED_TOKEN, "Unrecognized Token", path, tokenizer.lineIndex + 1, tokenizer.columnIndex + 1);
                 }
+                tokenizer.lastToken.value += tokenizer.lastChar;
                 tokenizer.lastToken.position = {tokenizer.lineIndex + 1, tokenizer.columnIndex + 1};
                 tokens.push_back(tokenizer.lastToken);
                 advance(tokenizer, 1);
