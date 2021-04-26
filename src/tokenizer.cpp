@@ -55,19 +55,18 @@ std::vector<Token> tokenize(const char *path)
                     if (peek(tokenizer, 1) == '+')
                     {
                         tokenizer.lastToken.kind = T_EQUAL_PLUS;
-                        tokenizer.lastToken.value = '=';
-                        advance(tokenizer, 1);
                     }
                     else if (peek(tokenizer, 1) == '-')
                     {
                         tokenizer.lastToken.kind = T_EQUAL_MINUS;
-                        tokenizer.lastToken.value = '=';
-                        advance(tokenizer, 1);
                     }
                     else
                     {
                         tokenizer.lastToken.kind = T_EQUAL;
+                        continue;
                     }
+                    tokenizer.lastToken.value = '=';
+                    advance(tokenizer, 1);
                 }
                 else if (tokenizer.lastChar == '+')
                 {
