@@ -25,6 +25,18 @@ void advance(Tokenizer &tokenizer, size_t offset)
     tokenizer.lastChar = tokenizer.lastLine[tokenizer.columnIndex];
 }
 
+char peek(Tokenizer tokenizer, size_t offset)
+{
+    if (offset + tokenizer.columnIndex < tokenizer.lastLine.length())
+    {
+        return tokenizer.lastLine[tokenizer.columnIndex + offset];
+    }
+    else
+    {
+        return tokenizer.lastLine[tokenizer.lastLine.length() - 1];
+    }
+}
+
 std::vector<Token> tokenize(const char *path)
 {
     std::vector<Token> tokens;
