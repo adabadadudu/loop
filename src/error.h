@@ -4,8 +4,10 @@
 #include <iomanip>
 #include <limits>
 
-namespace Error{
-    enum ERRORS{
+namespace Error
+{
+    enum ERRORS
+    {
         FILE_NOT_FOUND,
         UNRECOGNIZED_TOKEN
     };
@@ -13,4 +15,4 @@ namespace Error{
     void compiler(ERRORS code, const char *message);
 }
 
-#endif//ERROR_H
+#endif //ERROR_H

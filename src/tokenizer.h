@@ -13,7 +13,11 @@ enum TOKENS
     T_CHAR,
     T_INT,
     T_SEMICOLON,
-    T_EQUAL
+    T_EQUAL,
+    T_LEFT_BRACKET,
+    T_RIGHT_BRACKET,
+    T_LEFT_CURLY_BRACKET,
+    T_RIGHT_CURLY_BRACKET
 };
 
 struct TokenPosition
