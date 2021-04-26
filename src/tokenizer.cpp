@@ -68,6 +68,23 @@ std::vector<Token> tokenize(const char *path)
                     tokenizer.lastToken.value = '=';
                     advance(tokenizer, 1);
                 }
+                else if (tokenizer.lastChar == '"')
+                {
+                    int peekBy = 1;
+                    std::string value;
+                    value += peek(tokenizer, 0);
+                    while(peek(tokenizer, peekBy) != '"')
+                    {
+                        value += peek(tokenizer, peekBy);
+                        ++peekBy;
+                    }
+                    if(value == "\""){
+                        Error::syntax(Error::UNRECOGNIZED_TOKEN, "Unrecognized Token", path, tokenizer.lineIndex + 1, tokenizer.columnIndex + 1);
+                    }
+                    tokenizer.lastToken.kind = T_STRING;
+                    tokenizer.lastToken.value = value;
+                    advance(tokenizer, peekBy);
+                }
                 else if (tokenizer.lastChar == '+')
                 {
                     tokenizer.lastToken.kind = T_PLUS;
