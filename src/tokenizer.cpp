@@ -1,8 +1,8 @@
 #include "tokenizer.h"
 
-bool isEOF(Tokenizer tokenizer)
+bool Tokenizer::isEOF()
 {
-    if (tokenizer.columnIndex < tokenizer.lastLine.length() && tokenizer.lastChar != '\0' && tokenizer.lastChar != char(-1))
+    if (columnIndex < lastLine.length() && lastChar != '\0' && lastChar != char(-1))
     {
         return false;
     }
@@ -12,28 +12,28 @@ bool isEOF(Tokenizer tokenizer)
     }
 }
 
-void advance(Tokenizer &tokenizer, size_t offset)
+void Tokenizer::advance(int offset)
 {
-    if (offset + tokenizer.columnIndex < tokenizer.lastLine.length())
+    if (offset + columnIndex < lastLine.length())
     {
-        tokenizer.columnIndex += offset;
+        columnIndex += offset;
     }
     else
     {
-        tokenizer.columnIndex = tokenizer.lastLine.length();
+        columnIndex = lastLine.length();
     }
-    tokenizer.lastChar = tokenizer.lastLine[tokenizer.columnIndex];
+    lastChar = lastLine[columnIndex];
 }
 
-char peek(Tokenizer tokenizer, size_t offset)
+char Tokenizer::peek(int offset)
 {
-    if (offset + tokenizer.columnIndex < tokenizer.lastLine.length())
+    if (offset + columnIndex < lastLine.length())
     {
-        return tokenizer.lastLine[tokenizer.columnIndex + offset];
+        return lastLine[columnIndex + offset];
     }
     else
     {
-        return tokenizer.lastLine[tokenizer.lastLine.length() - 1];
+        return lastLine[lastLine.length() - 1];
     }
 }
 
@@ -47,34 +47,112 @@ std::vector<Token> tokenize(const char *path)
         while (getline(file, tokenizer.lastLine))
         {
             tokenizer.lastChar = tokenizer.lastLine[0];
-            while (!isEOF(tokenizer))
+            while (!tokenizer.isEOF())
             {
                 tokenizer.lastToken.value.clear();
                 if (tokenizer.lastChar == '=')
                 {
-                    if (peek(tokenizer, 1) == '+')
+                    if (tokenizer.peek(1) == '=')
                     {
-                        tokenizer.lastToken.kind = T_EQUAL_PLUS;
-                    }
-                    else if (peek(tokenizer, 1) == '-')
-                    {
-                        tokenizer.lastToken.kind = T_EQUAL_MINUS;
+                        tokenizer.lastToken.kind = T_DOUBLE_EQUAL;
+                        tokenizer.lastToken.value = '=';
+                        tokenizer.advance(1);
                     }
                     else
                     {
                         tokenizer.lastToken.kind = T_EQUAL;
-                        continue;
                     }
-                    tokenizer.lastToken.value = '=';
-                    advance(tokenizer, 1);
                 }
                 else if (tokenizer.lastChar == '+')
                 {
-                    tokenizer.lastToken.kind = T_PLUS;
+                    if (tokenizer.peek(1) == '=')
+                    {
+                        tokenizer.lastToken.kind = T_EQUAL_PLUS;
+                        tokenizer.lastToken.value = '+';
+                        tokenizer.advance(1);
+                    }
+                    else if (tokenizer.peek(1) == '+')
+                    {
+                        tokenizer.lastToken.kind = T_DOUBLE_PLUS;
+                        tokenizer.lastToken.value = '+';
+                        tokenizer.advance(1);
+                    }
+                    else
+                    {
+                        tokenizer.lastToken.kind = T_PLUS;
+                    }
                 }
                 else if (tokenizer.lastChar == '-')
                 {
-                    tokenizer.lastToken.kind = T_MINUS;
+                    if (tokenizer.peek(1) == '=')
+                    {
+                        tokenizer.lastToken.kind = T_EQUAL_MINUS;
+                        tokenizer.lastToken.value = '-';
+                        tokenizer.advance(1);
+                    }
+                    else if (tokenizer.peek(1) == '-')
+                    {
+                        tokenizer.lastToken.kind = T_DOUBLE_MINUS;
+                        tokenizer.lastToken.value = '-';
+                        tokenizer.advance(1);
+                    }
+                    else
+                    {
+                        tokenizer.lastToken.kind = T_MINUS;
+                    }
+                }
+                else if (tokenizer.lastChar == '|')
+                {
+                    if (tokenizer.peek(1) == '=')
+                    {
+                        tokenizer.lastToken.kind = T_EQUAL_PIPE;
+                        tokenizer.lastToken.value = '|';
+                        tokenizer.advance(1);
+                    }
+                    else if (tokenizer.peek(1) == '|')
+                    {
+                        tokenizer.lastToken.kind = T_DOUBLE_PIPE;
+                        tokenizer.lastToken.value = '|';
+                        tokenizer.advance(1);
+                    }
+                    else
+                    {
+                        tokenizer.lastToken.kind = T_PIPE;
+                    }
+                }
+                else if (tokenizer.lastChar == '<')
+                {
+                    if (tokenizer.peek(1) == '=')
+                    {
+                        tokenizer.lastToken.kind = T_EQUAL_LESSER_BRACKET;
+                        tokenizer.lastToken.value = '<';
+                        tokenizer.advance(1);
+                    }
+                    else
+                    {
+                        tokenizer.lastToken.kind = T_LESSER_BRACKET;
+                    }
+                }
+                else if (tokenizer.lastChar == '>')
+                {
+                    if (tokenizer.peek(1) == '=')
+                    {
+                        tokenizer.lastToken.kind = T_EQUAL_GREETER_BRACKET;
+                        tokenizer.lastToken.value = '>';
+                        tokenizer.advance(1);
+                    }
+                    else
+                    {
+                        tokenizer.lastToken.kind = T_GREETER_BRACKET;
+                    }
+                }
+                else if (tokenizer.lastChar == '/')
+                {
+                    tokenizer.lastToken.kind = T_SLASH;
+                }
+                else if (tokenizer.lastChar == '%')
+                {
+                    tokenizer.lastToken.kind = T_PERCENT;
                 }
                 else if (tokenizer.lastChar == ';')
                 {
@@ -103,7 +181,7 @@ std::vector<Token> tokenize(const char *path)
                 tokenizer.lastToken.value += tokenizer.lastChar;
                 tokenizer.lastToken.position = {tokenizer.lineIndex + 1, tokenizer.columnIndex + 1};
                 tokens.push_back(tokenizer.lastToken);
-                advance(tokenizer, 1);
+                tokenizer.advance(1);
             }
             tokenizer.columnIndex = 0;
             tokenizer.lineIndex++;
