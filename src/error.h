@@ -9,7 +9,8 @@ namespace Error
     enum ERRORS
     {
         FILE_NOT_FOUND,
-        UNRECOGNIZED_TOKEN
+        UNRECOGNIZED_TOKEN,
+        MISSING_QUOTATION_MARK
     };
     void syntax(ERRORS code, const char *message, const char *file_path, size_t line, size_t column);
     void compiler(ERRORS code, const char *message);

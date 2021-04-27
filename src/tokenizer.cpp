@@ -101,7 +101,28 @@ std::vector<Token> tokenize(const char *path)
                         tokenizer.lastToken.kind = T_MINUS;
                     }
                 }
+<<<<<<< HEAD
                 else if (tokenizer.lastChar == '|')
+=======
+                else if (tokenizer.lastChar == '"')
+                {
+                    int peekBy = 1;
+                    std::string value;
+                    value += peek(tokenizer, 0);
+                    while(peek(tokenizer, peekBy) != '"')
+                    {
+                        value += peek(tokenizer, peekBy);
+                        ++peekBy;
+                    }
+                    if(value == "\""){
+                        Error::syntax(Error::MISSING_QUOTATION_MARK, "Missing quotation mark", path, tokenizer.lineIndex + 1, tokenizer.columnIndex + 1);
+                    }
+                    tokenizer.lastToken.kind = T_STRING;
+                    tokenizer.lastToken.value = value;
+                    advance(tokenizer, peekBy);
+                }
+                else if (tokenizer.lastChar == '+')
+>>>>>>> 7bba7d6bbe05d5ffd3da756b5657a574f2dd145b
                 {
                     if (tokenizer.peek(1) == '=')
                     {
