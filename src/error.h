@@ -14,7 +14,7 @@ namespace Error
         UNRECOGNIZED_TOKEN,
         MISSING_QUOTATION_MARK
     };
-    void syntax(ERRORS code, const char *message, const char *file_path, size_t line, size_t column);
+    void syntax(ERRORS code, const char *message, const char *file_path, size_t index);
     void compiler(ERRORS code, const char *message);
 }
 

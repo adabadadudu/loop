@@ -66,7 +66,7 @@ std::vector<Token> tokenize(std::string data)
         {
             if (tokenizer.isLCOF())
             {
-                Error::syntax(Error::MISSING_QUOTATION_MARK, "Quated String Must Be Finished", tokenizer.src.c_str(), tokenizer.index, tokenizer.src.length());
+                Error::syntax(Error::MISSING_QUOTATION_MARK, "Quated String Must Be Finished", tokenizer.src.c_str(), tokenizer.index);
             }
             tokenizer.lastToken.value += tokenizer.lastChar;
             tokenizer.advance(1);
@@ -210,7 +210,7 @@ std::vector<Token> tokenize(std::string data)
         }
         else
         {
-            Error::syntax(Error::UNRECOGNIZED_TOKEN, "Unrecognized Token", data.c_str(), tokenizer.index + 1, tokenizer.index + 1);
+            Error::syntax(Error::UNRECOGNIZED_TOKEN, "Unrecognized Token", data.c_str(), tokenizer.index);
         }
         tokenizer.lastToken.value += tokenizer.lastChar;
         tokenizer.lastToken.position = {tokenizer.index + 1, tokenizer.index + 1};

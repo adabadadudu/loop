@@ -7,11 +7,14 @@ int main(int argc, char *argv[])
     if (argc > 0)
     {
         IO io;
-        io.read(argv[1]);
-        std::vector<Token> tokens = tokenize(io.reads[0].data);
-        for (Token token : tokens)
+        for (int i = 0; i < argc - 1; i++)
         {
-            std::cout << token.kind << " : " << token.value << "\n";
+            io.read(argv[i + 1]);
+            std::vector<Token> tokens = tokenize(io.reads[i].data);
+            for (Token token : tokens)
+            {
+                std::cout << token.kind << " : " << token.value << "\n";
+            }
         }
     }
     return 0;
