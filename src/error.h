@@ -9,6 +9,8 @@ namespace Error
     enum ERRORS
     {
         FILE_NOT_FOUND,
+        IS_DIRECTORY,
+        IST_REGULAR_FILE,
         UNRECOGNIZED_TOKEN,
         MISSING_QUOTATION_MARK
     };

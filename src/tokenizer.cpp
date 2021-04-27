@@ -54,7 +54,7 @@ std::vector<Token> tokenize(const char *path)
                 {
                     int peekBy = 1;
                     std::string value;
-                    value += tokenizer.peek(0);
+                    value += tokenizer.lastChar;
                     while (tokenizer.peek(peekBy) != '"')
                     {
                         value += tokenizer.peek(peekBy);
