@@ -1,0 +1,14 @@
+namespace Variables{
+    class Variables{
+        void Main(){
+            char charVar = 'a';
+            string strVar = "hello world";
+            int intVar = 1;
+            float floatVar = 1.0;
+            double doubleVar = 1.0;
+            bool boolVar = true;
+            void voidVar = null;
+        }
+    }
+}
+
