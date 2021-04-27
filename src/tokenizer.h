@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <fstream>
 #include "error.h"
 
 enum TOKENS
@@ -51,9 +50,8 @@ struct Token
 
 struct Tokenizer
 {
-    size_t columnIndex = 0;
-    size_t lineIndex = 0;
-    std::string lastLine;
+    size_t index = 0;
+    std::string src;
     char lastChar;
     Token lastToken;
     bool isEOF();
@@ -61,6 +59,6 @@ struct Tokenizer
     void advance(int offset);
 };
 
-std::vector<Token> tokenize(const char *path);
+std::vector<Token> tokenize(std::string data);
 
 #endif //TOKENIZER_H
