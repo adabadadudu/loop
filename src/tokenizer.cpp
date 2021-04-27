@@ -33,7 +33,7 @@ char Tokenizer::peek(int offset)
     }
     else
     {
-        return src[src.length() - 1];
+        return src[src.length()];
     }
 }
 
@@ -52,21 +52,37 @@ std::vector<Token> tokenize(std::string data)
         }
         if (tokenizer.lastChar == '"')
         {
-            int peekBy = 1;
-            std::string value;
-            value += tokenizer.lastChar;
-            while (tokenizer.peek(peekBy) != '"')
+            if (tokenizer.index == tokenizer.src.length() - 1)
             {
-                value += tokenizer.peek(peekBy);
-                ++peekBy;
+                Error::syntax(Error::MISSING_QUOTATION_MARK, "Quated String Must Be Finished", tokenizer.src.c_str(), tokenizer.index, tokenizer.index);
             }
-            if (value == "\"")
+            tokenizer.lastToken.value += tokenizer.lastChar;
+            tokenizer.advance(1);
+            while (!tokenizer.isEOF())
             {
-                Error::syntax(Error::MISSING_QUOTATION_MARK, "Missing quotation mark", data.c_str(), tokenizer.index + 1, tokenizer.index + 1);
+                if (tokenizer.lastChar == '"')
+                {
+                    tokenizer.lastToken.kind = T_STRING;
+                    break;
+                }
+                else
+                {
+                    if (tokenizer.index == tokenizer.src.length() - 1)
+                    {
+                        if (tokenizer.lastChar == '"')
+                        {
+                            tokenizer.lastToken.value += tokenizer.lastChar;
+                            tokenizer.advance(1);
+                        }
+                        else
+                        {
+                            Error::syntax(Error::MISSING_QUOTATION_MARK, "Quated String Must Be Finished", tokenizer.src.c_str(), tokenizer.index, tokenizer.index);
+                        }
+                    }
+                    tokenizer.lastToken.value += tokenizer.lastChar;
+                    tokenizer.advance(1);
+                }
             }
-            tokenizer.lastToken.kind = T_STRING;
-            tokenizer.lastToken.value = value;
-            tokenizer.advance(peekBy);
         }
         else if (tokenizer.lastChar == '=')
         {
