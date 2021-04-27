@@ -55,6 +55,7 @@ struct Tokenizer
     char lastChar;
     Token lastToken;
     bool isEOF();
+    bool isLCOF();
     char peek(int offset);
     void advance(int offset);
 };

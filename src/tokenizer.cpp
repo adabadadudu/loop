@@ -1,8 +1,20 @@
 #include "tokenizer.h"
 
-bool Tokenizer::isEOF()
+bool Tokenizer::isEOF() // End Of File
 {
     if (index < src.length() && lastChar != '\0' && lastChar != char(-1))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+bool Tokenizer::isLCOF() // Is Last Char Of File
+{
+    if (index < src.length() - 1)
     {
         return false;
     }
@@ -52,35 +64,23 @@ std::vector<Token> tokenize(std::string data)
         }
         if (tokenizer.lastChar == '"')
         {
-            if (tokenizer.index == tokenizer.src.length() - 1)
+            if (tokenizer.isLCOF())
             {
-                Error::syntax(Error::MISSING_QUOTATION_MARK, "Quated String Must Be Finished", tokenizer.src.c_str(), tokenizer.index, tokenizer.index);
+                Error::syntax(Error::MISSING_QUOTATION_MARK, "Quated String Must Be Finished", tokenizer.src.c_str(), tokenizer.index, tokenizer.src.length());
             }
             tokenizer.lastToken.value += tokenizer.lastChar;
             tokenizer.advance(1);
             while (!tokenizer.isEOF())
             {
-                if (tokenizer.lastChar == '"')
+                if (tokenizer.lastChar != '"')
                 {
-                    tokenizer.lastToken.kind = T_STRING;
-                    break;
+                    tokenizer.lastToken.value += tokenizer.lastChar;
+                    tokenizer.advance(1);
                 }
                 else
                 {
-                    if (tokenizer.index == tokenizer.src.length() - 1)
-                    {
-                        if (tokenizer.lastChar == '"')
-                        {
-                            tokenizer.lastToken.value += tokenizer.lastChar;
-                            tokenizer.advance(1);
-                        }
-                        else
-                        {
-                            Error::syntax(Error::MISSING_QUOTATION_MARK, "Quated String Must Be Finished", tokenizer.src.c_str(), tokenizer.index, tokenizer.index);
-                        }
-                    }
-                    tokenizer.lastToken.value += tokenizer.lastChar;
-                    tokenizer.advance(1);
+                    tokenizer.lastToken.kind = T_STRING;
+                    break;
                 }
             }
         }
