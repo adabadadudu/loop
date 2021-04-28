@@ -89,6 +89,14 @@ std::vector<Token> tokenize(std::string data)
                 }
             }
         }
+        else if (int(tokenizer.lastChar) == 39)
+        {
+            tokenizer.lastToken.value += tokenizer.lastChar;
+            tokenizer.advance(1);
+            tokenizer.lastToken.value += tokenizer.lastChar;
+            tokenizer.advance(1);
+            tokenizer.lastToken.kind = T_CHAR;
+        }
         else if (tokenizer.lastChar == '=')
         {
             if (tokenizer.peek(1) == '=')
