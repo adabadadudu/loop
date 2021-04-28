@@ -4,13 +4,17 @@
 
 <div style="text-align:center">
 
-![badge](https://img.shields.io/github/last-commit/loop-lang/loop)
-![badge](https://tokei.rs/b1/github/loop-lang/loop)
-![badge](https://badgen.net/github/stars/loop-lang/loop)
+<p align="center">
 
+<img src="https://img.shields.io/github/last-commit/loop-lang/loop"/>
+<img src="https://tokei.rs/b1/github/loop-lang/loop"/>
+<img src="https://badgen.net/github/stars/loop-lang/loop"/>
+<br>
 <a href="https://discord.gg/a23N3Gdy">
   <img src="https://img.shields.io/discord/836863029080752128?style=for-the-badge" alt="discord - users online" />
 </a>
+
+</p>
 
 </div>
 
