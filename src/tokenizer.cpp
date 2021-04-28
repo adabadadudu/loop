@@ -89,13 +89,13 @@ std::vector<Token> tokenize(std::string data)
                 }
             }
         }
-        else if (int(tokenizer.lastChar) == 39)
+        else if (tokenizer.lastChar == '\'')
         {
             tokenizer.lastToken.value += tokenizer.lastChar;
             tokenizer.advance(1);
-            if (int(tokenizer.lastChar) != 39)
+            if (tokenizer.lastChar != '\'')
             {
-                if (int(tokenizer.lastChar) == 92)
+                if (tokenizer.lastChar == '\\')
                 {
                     tokenizer.lastToken.value += tokenizer.lastChar;
                     tokenizer.advance(1);
@@ -104,7 +104,7 @@ std::vector<Token> tokenize(std::string data)
                 tokenizer.lastToken.value += tokenizer.lastChar;
                 tokenizer.advance(1);
 
-                if (int(tokenizer.lastChar) != 39)
+                if (tokenizer.lastChar != '\'')
                 {
                     Error::syntax(Error::MISSING_APOSTROPHE_MARK, "Quated Char Must Be Finished", tokenizer.src.c_str(), tokenizer.index);
                 }
