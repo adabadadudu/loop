@@ -10,7 +10,7 @@ void Error::compiler(ERRORS code, const char *message)
     if(color){
         std::cerr << "\x1b[0;91;1mERROR[E" << std::setfill('0') << std::setw(3) << code << "]\x1b[0;1m: " << message << std::endl;
     }else {
-        std::cerr "E" << std::setfill('0') << std::setw(3) << code << "]:" << message << std::endl;
+        std::cerr << "E" << std::setfill('0') << std::setw(3) << code << "]:" << message << std::endl;
     }
     exit(1);
 }
