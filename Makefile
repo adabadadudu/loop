@@ -1,6 +1,6 @@
 GCC = g++
 src = $(wildcard src/*.cpp)
-flags = -Wall -Wextra -Wpedantic -Wconversion -Wnon-virtual-dtor -Werror -std=c++20
+flags = -Wall -Wextra -Wpedantic -Wconversion -Wnon-virtual-dtor -Werror -std=c++17
 
 
 build: 
