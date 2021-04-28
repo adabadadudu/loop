@@ -215,6 +215,19 @@ std::vector<Token> tokenize(std::string data)
                 tokenizer.lastToken.kind = T_RIGHT_ANGLE_BRACKET;
             }
         }
+        else if (tokenizer.lastChar == '&')
+        {
+            if (tokenizer.peek(1) == '&')
+            {
+                tokenizer.lastToken.kind = T_LOGIC_AND;
+                tokenizer.lastToken.value = '&';
+                tokenizer.advance(1);
+            }
+            else
+            {
+                tokenizer.lastToken.kind = T_AND;
+            }
+        }
         else if (tokenizer.lastChar == '/')
         {
             tokenizer.lastToken.kind = T_SLASH;
