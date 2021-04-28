@@ -164,7 +164,7 @@ std::vector<Token> tokenize(std::string data)
             }
             else
             {
-                tokenizer.lastToken.kind = T_LESSER_BRACKET;
+                tokenizer.lastToken.kind = T_LEFT_ANGLE_BRACKET;
             }
         }
         else if (tokenizer.lastChar == '>')
@@ -177,7 +177,7 @@ std::vector<Token> tokenize(std::string data)
             }
             else
             {
-                tokenizer.lastToken.kind = T_GREETER_BRACKET;
+                tokenizer.lastToken.kind = T_RIGHT_ANGLE_BRACKET;
             }
         }
         else if (tokenizer.lastChar == '/')
@@ -194,11 +194,11 @@ std::vector<Token> tokenize(std::string data)
         }
         else if (tokenizer.lastChar == '(')
         {
-            tokenizer.lastToken.kind = T_LEFT_BRACKET;
+            tokenizer.lastToken.kind = T_LEFT_ROUNDED_BRACKET;
         }
         else if (tokenizer.lastChar == ')')
         {
-            tokenizer.lastToken.kind = T_RIGHT_BRACKET;
+            tokenizer.lastToken.kind = T_RIGHT_ROUNDED_BRACKET;
         }
         else if (tokenizer.lastChar == '{')
         {
@@ -207,6 +207,14 @@ std::vector<Token> tokenize(std::string data)
         else if (tokenizer.lastChar == '}')
         {
             tokenizer.lastToken.kind = T_RIGHT_CURLY_BRACKET;
+        }
+        else if (tokenizer.lastChar == '[')
+        {
+            tokenizer.lastToken.kind = T_LEFT_SQUARE_BRACKET;
+        }
+        else if (tokenizer.lastChar == ']')
+        {
+            tokenizer.lastToken.kind = T_RIGHT_SQUARE_BRACKET;
         }
         else
         {

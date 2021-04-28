@@ -7,31 +7,33 @@
 
 enum TOKENS
 {
-    T_ID, // Identifiers: using, return and etc
-    T_STRING, // "String"
-    T_CHAR, // 'Char'
-    T_INT, // 27
-    T_EQUAL, // =
-    T_PLUS, // +
-    T_MINUS, // -
-    T_SLASH, // /
-    T_PERCENT, // %
-    T_PIPE, // |
-    T_SEMICOLON, // ;
-    T_LEFT_BRACKET, // (
-    T_RIGHT_BRACKET, // )
-    T_LEFT_CURLY_BRACKET, // {
-    T_RIGHT_CURLY_BRACKET, // }
-    T_LESSER_BRACKET, // <
-    T_GREETER_BRACKET, // >
-    T_DOUBLE_EQUAL, // ==
-    T_DOUBLE_PLUS, // ++
-    T_DOUBLE_MINUS, // --
-    T_DOUBLE_PIPE, // ||
-    T_EQUAL_PLUS, // +=
-    T_EQUAL_MINUS, // -=
-    T_EQUAL_PIPE, // |=
-    T_EQUAL_LESSER_BRACKET, // <=
+    T_ID,                    // Identifiers: using, return and etc
+    T_STRING,                // "String"
+    T_CHAR,                  // 'Char'
+    T_INT,                   // 27
+    T_EQUAL,                 // =
+    T_PLUS,                  // +
+    T_MINUS,                 // -
+    T_SLASH,                 // /
+    T_PERCENT,               // %
+    T_PIPE,                  // |
+    T_SEMICOLON,             // ;
+    T_LEFT_ROUNDED_BRACKET,  // (
+    T_RIGHT_ROUNDED_BRACKET, // )
+    T_LEFT_CURLY_BRACKET,    // {
+    T_RIGHT_CURLY_BRACKET,   // }
+    T_LEFT_SQUARE_BRACKET,   // [
+    T_RIGHT_SQUARE_BRACKET,  // ]
+    T_LEFT_ANGLE_BRACKET,    // <
+    T_RIGHT_ANGLE_BRACKET,   // >
+    T_DOUBLE_EQUAL,          // ==
+    T_DOUBLE_PLUS,           // ++
+    T_DOUBLE_MINUS,          // --
+    T_DOUBLE_PIPE,           // ||
+    T_EQUAL_PLUS,            // +=
+    T_EQUAL_MINUS,           // -=
+    T_EQUAL_PIPE,            // |=
+    T_EQUAL_LESSER_BRACKET,  // <=
     T_EQUAL_GREETER_BRACKET, // >=
 };
 
