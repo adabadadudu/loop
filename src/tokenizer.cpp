@@ -72,15 +72,20 @@ std::vector<Token> tokenize(std::string data)
             tokenizer.advance(1);
             while (!tokenizer.isEOF())
             {
-                if (tokenizer.lastChar != '"')
-                {
-                    tokenizer.lastToken.value += tokenizer.lastChar;
-                    tokenizer.advance(1);
-                }
-                else
+                if (tokenizer.lastChar == '"')
                 {
                     tokenizer.lastToken.kind = T_STRING;
                     break;
+                }
+                else
+                {
+                    if (tokenizer.lastChar == '\\' && tokenizer.peek(1) == '"')
+                    {
+                        tokenizer.lastToken.value += tokenizer.lastChar;
+                        tokenizer.advance(1);
+                    }
+                    tokenizer.lastToken.value += tokenizer.lastChar;
+                    tokenizer.advance(1);
                 }
             }
         }
