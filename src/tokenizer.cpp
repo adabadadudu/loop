@@ -91,16 +91,24 @@ std::vector<Token> tokenize(std::string data)
         }
         else if (tokenizer.lastChar == '\'')
         {
+            if (tokenizer.isLCOF())
+            {
+                Error::syntax(Error::MISSING_QUOTATION_MARK, "Quated Char Must Be Finished", tokenizer.src.c_str(), tokenizer.index);
+            }
             tokenizer.lastToken.value += tokenizer.lastChar;
             tokenizer.advance(1);
-            if (tokenizer.lastChar != '\'')
+            if (tokenizer.lastChar == '\'')
             {
-                if (tokenizer.lastChar == '\\')
+                Error::syntax(Error::MISSING_APOSTROPHE_MARK, "Chars Must Be Initialized", tokenizer.src.c_str(), tokenizer.index);
+            }
+            else
+            {
+                if (tokenizer.lastChar == '\\' && tokenizer.peek(1) == '\'')
                 {
                     tokenizer.lastToken.value += tokenizer.lastChar;
                     tokenizer.advance(1);
                 }
-                
+
                 tokenizer.lastToken.value += tokenizer.lastChar;
                 tokenizer.advance(1);
 
@@ -108,11 +116,6 @@ std::vector<Token> tokenize(std::string data)
                 {
                     Error::syntax(Error::MISSING_APOSTROPHE_MARK, "Quated Char Must Be Finished", tokenizer.src.c_str(), tokenizer.index);
                 }
-            }
-            else
-            {
-                tokenizer.lastToken.value += tokenizer.lastChar;
-                tokenizer.advance(1);
             }
             tokenizer.lastToken.kind = T_CHAR;
         }
