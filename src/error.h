@@ -11,6 +11,8 @@ namespace Error
         FILE_NOT_FOUND,
         IS_DIRECTORY,
         IST_REGULAR_FILE,
+        NO_NULL_CHAR,
+        MORE_THAN_ONE_BYTE,
         UNRECOGNIZED_TOKEN,
         MISSING_QUOTATION_MARK,
         MISSING_APOSTROPHE_MARK,
