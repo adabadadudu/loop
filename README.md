@@ -8,6 +8,10 @@
 ![badge](https://tokei.rs/b1/github/loop-lang/loop)
 ![badge](https://badgen.net/github/stars/loop-lang/loop)
 
+<a href="https://discord.gg/a23N3Gdy">
+  <img src="https://img.shields.io/discord/836863029080752128?style=for-the-badge" alt="discord - users online" />
+</a>
+
 </div>
 
 # Loop
