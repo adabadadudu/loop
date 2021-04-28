@@ -6,13 +6,12 @@
 
 <p align="center">
 
-<img src="https://img.shields.io/github/last-commit/loop-lang/loop"/>
-<img src="https://tokei.rs/b1/github/loop-lang/loop"/>
-<img src="https://badgen.net/github/stars/loop-lang/loop"/>
-<br>
 <a href="https://discord.gg/a23N3Gdy">
   <img src="https://img.shields.io/discord/836863029080752128.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="discord - users online" />
 </a>
+<img src="https://img.shields.io/github/last-commit/loop-lang/loop"/>
+<img src="https://tokei.rs/b1/github/loop-lang/loop"/>
+<img src="https://badgen.net/github/stars/loop-lang/loop"/>
 
 </p>
 
