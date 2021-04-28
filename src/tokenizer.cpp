@@ -95,8 +95,15 @@ std::vector<Token> tokenize(std::string data)
             tokenizer.advance(1);
             if (int(tokenizer.lastChar) != 39)
             {
+                if (int(tokenizer.lastChar) == 92)
+                {
+                    tokenizer.lastToken.value += tokenizer.lastChar;
+                    tokenizer.advance(1);
+                }
+                
                 tokenizer.lastToken.value += tokenizer.lastChar;
                 tokenizer.advance(1);
+
                 if (int(tokenizer.lastChar) != 39)
                 {
                     Error::syntax(Error::MISSING_APOSTROPHE_MARK, "Quated Char Must Be Finished", tokenizer.src.c_str(), tokenizer.index);
